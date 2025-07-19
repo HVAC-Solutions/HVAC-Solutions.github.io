@@ -924,9 +924,13 @@
             updateChillers();
 
             $('#search-input').on('input', function() {
-                const query = $(this).val();
+            const query = $(this).val();
+            if (query.length > 0) {
                 searchFaultsAndCodes(query);
-            });
+            } else { // هذا الجزء الجديد الذي يمسح النتائج
+                $('#search-results').empty();
+            }
+        });
             $('#lang-switch').on('click', switchLanguage);
 
             $('#privacy-policy-link').on('click', function(e) {
