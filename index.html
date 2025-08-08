@@ -329,6 +329,9 @@
             .footer {
                 padding: 20px 10px;
             }
+            .text-shadow {
+        text-shadow: 2px 2px 4px #ffffff;
+    }
         }
     </style>
 </head>
@@ -353,6 +356,12 @@
             <div class="search-bar">
                 <input type="text" id="search-input" class="form-control" placeholder="ابحث عن عطل أو كود (مثل: لا يبرد أو F1)">
                 <div id="search-results"></div>
+              <a id="article-link" href="#" class="my-3 d-block text-decoration-none">
+    <img src="1.jpg" alt="مكيف لا يبرد" class="img-fluid w-100" style="border-radius: 8px;">
+    <div class="mt-2 text-center">
+        <h3 class="text-dark text-shadow" data-translate="articleLinkTitle"></h3>
+    </div>
+</a>
             </div>
 
             <section id="symptoms" class="section-title">
@@ -424,10 +433,10 @@
     <footer class="footer">
         <p id="footer-copyright"></p>
         <p id="footer-developed-by"></p>
-        <div class="footer-links">
-            <a href="#privacy-policy-section" id="privacy-policy-link">سياسة الخصوصية</a> |
-            <a href="#terms-of-service-section" id="terms-of-service-link">شروط الخدمة</a>
-        </div>
+       <div class="footer-links">
+    <a href="#privacy-policy-section" id="privacy-policy-link" data-translate="privacyPolicy"></a> |
+    <a href="#terms-of-service-section" id="terms-of-service-link" data-translate="termsOfService"></a>
+</div>
         <div class="contact-info">
             <p><a href="mailto:alnurs50@gmail.com" id="footer-contact-link"></a></p> </div>
     </footer>
@@ -489,345 +498,299 @@
     </section>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        let currentLang = 'ar';
-        const acTypeTranslations = {
-            ar: {
-                'شباك': 'شباك',
-                'سبليت': 'سبليت',
-                'باكدج': 'باكدج',
-                'مخفي دولابي/كاسيت': 'مخفي دولابي/كاسيت',
-                'عادي': 'عادي',
-                'إنفيرتر': 'إنفيرتر'
-            },
-            en: {
-        'شباك': 'Window',
-        'سبليت': 'Split',
-        'باكدج': 'Package',
-        'مخفي': 'Concealed',
-        'دولابي': 'free stand',
-        'كاسيت': 'Cassette',
-                'عادي': 'Normal',
-                'إنفيرتر': 'Inverter'
-            }
-        };
-        const translations = {
-            ar: {
-                title: 'موسوعة أعطال التكييف',
-                introDescription: 'ابحث عن حلول سريعة لأعطال المكيفات، غرف التبريد، والشيلرات باللغتين العربية والإنجليزية. موقعك الموثوق لصيانة المكيفات!',
-                consultBtn: 'استشارة فورية (مدفوعة)',
-                consultNote: 'اضغط للتواصل عبر واتساب، وسنرسل رابط الدفع بعد إرسال استشارتك.',
-                symptoms: 'الأعراض',
-                codes: 'أكواد الأخطاء',
-                chillers: 'أعطال الشيلر',
-                coolingRooms: 'أعطال غرف التبريد والتجميد',
-                selectAcType: 'اختر نوع المكيف:',
-                selectSymptom: 'اختر العطل:',
-                selectCodeType: 'اختر نوع التكييف:', // Still 'Normal/Inverter'
-                selectBrand: 'اختر الماركة:', // New translation
-                selectCode: 'اختر الكود:',
-                selectChillerFault: 'اختر عطل الشيلر:', // New translation
-                selectCoolingRoomFault: 'اختر عطل غرفة التبريد:', // New translation
-                check: 'الفحص',
-                solution: 'الحل',
-                switchLang: 'English',
-                searchPlaceholder: 'ابحث عن عطل أو كود (مثل: لا يبرد أو F1)',
-                comingSoon: 'قريبًا',
-                selectOption: '-- اختر --',
-                privacyPolicy: 'سياسة الخصوصية',
-                termsOfService: 'شروط الخدمة',
-                copyright: 'جميع الحقوق محفوظة © 2025',
-                developedBy: 'التطوير بواسطة المهندس / همام التريكي',
-                contactLinkText: 'للتواصل عبر البريد الإلكتروني'
-            },
-            en: {
-                title: 'Air Conditioning Faults Encyclopedia',
-                introDescription: 'Find quick solutions for air conditioner, cooling room, and chiller faults in Arabic and English. Your trusted source for AC maintenance!',
-                consultBtn: 'Instant Consultation (Paid)',
-                consultNote: 'Click to contact us via WhatsApp, and we will send a payment link after receiving your consultation.',
-                symptoms: 'Symptoms',
-                codes: 'Error Codes',
-                chillers: 'Chiller Faults',
-                coolingRooms: 'Cooling Room & Freezing Faults',
-                selectAcType: 'Select AC Type:',
-                selectSymptom: 'Select Symptom:',
-                selectCodeType: 'Select AC Type:', // Still 'Normal/Inverter'
-                selectBrand: 'Select Brand:', // New translation
-                selectCode: 'Select Code:',
-                selectChillerFault: 'Select Chiller Fault:', // New translation
-                selectCoolingRoomFault: 'Select Cooling Room Fault:', // New translation
-                check: 'Check',
-                solution: 'Solution',
-                switchLang: 'العربية',
-                searchPlaceholder: 'Search for a symptom or code (e.g., Does not cool or F1)',
-                comingSoon: 'Coming Soon',
-                selectOption: '-- Select --',
-                privacyPolicy: 'Privacy Policy',
-                termsOfService: 'Terms of Service',
-                copyright: 'All Rights Reserved © 2025',
-                developedBy: 'Developed by Engineer / Hammam Al-Treiki',
-                contactLinkText: 'Contact via Email'
-            }
-        };
-
-        function switchLanguage() {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            $('html').attr('lang', currentLang).attr('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
-            $('title').text(translations[currentLang].title);
-            $('#intro-title').text(translations[currentLang].title);
-            $('#intro-description').text(translations[currentLang].introDescription);
-            $('#consult-btn').html(`<i class="fas fa-headset"></i> ${translations[currentLang].consultBtn}`);
-            $('#consult-note').text(translations[currentLang].consultNote);
-
-            $('#symptoms-title').html(`<i class="fas fa-exclamation-circle"></i> ${translations[currentLang].symptoms}`);
-            $('#codes-title').html(`<i class="fas fa-code"></i> ${translations[currentLang].codes}`);
-            $('#chillers-title').html(`<i class="fas fa-fan"></i> ${translations[currentLang].chillers}`);
-            $('#cooling-rooms-title').html(`<i class="fas fa-snowflake"></i> ${translations[currentLang].coolingRooms}`);
-            
-            $('#label-ac-type').text(translations[currentLang].selectAcType);
-            $('#label-symptom').text(translations[currentLang].selectSymptom);
-            $('#label-ac-code-type').text(translations[currentLang].selectCodeType);
-            $('#label-ac-brand').text(translations[currentLang].selectBrand);
-            $('#label-code').text(translations[currentLang].selectCode);
-            $('#label-chiller-fault').text(translations[currentLang].selectChillerFault); // New label
-            $('#label-cooling-room-fault').text(translations[currentLang].selectCoolingRoomFault); // New label
-
-            $('#ac-type option[value=""]').text(`-- ${translations[currentLang].selectAcType} --`);
-            $('#symptom option[value=""]').text(`-- ${translations[currentLang].selectSymptom} --`);
-            $('#ac-code-type option[value=""]').text(`-- ${translations[currentLang].selectCodeType} --`);
-            $('#ac-brand option[value=""]').text(`-- ${translations[currentLang].selectBrand} --`);
-            $('#code option[value=""]').text(`-- ${translations[currentLang].selectCode} --`);
-            $('#chiller-fault option[value=""]').text(`-- ${translations[currentLang].selectChillerFault} --`); // New option
-            $('#cooling-room-fault option[value=""]').text(`-- ${translations[currentLang].selectCoolingRoomFault} --`); // New option
-
-
-            $('#search-input').attr('placeholder', translations[currentLang].searchPlaceholder);
-            $('#lang-switch').html(`<i class="fas fa-globe"></i> ${translations[currentLang].switchLang}`);
-            $('#chiller-coming-soon-text').text(translations[currentLang].comingSoon);
-            $('#cooling-room-coming-soon-text').text(translations[currentLang].comingSoon);
-
-            $('#privacy-policy-link').text(translations[currentLang].privacyPolicy);
-            $('#terms-of-service-link').text(translations[currentLang].termsOfService);
-            $('#footer-copyright').text(translations[currentLang].copyright);
-            $('#footer-developed-by').text(translations[currentLang].developedBy);
-            $('#footer-contact-link').text(translations[currentLang].contactLinkText);
-            
-            updateSymptoms();
-            updateCodes();
-            updateChillers();
-            updateCoolingRooms();
-            $('#search-input').val('').trigger('input');
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    let currentLang = 'ar';
+    const acTypeTranslations = {
+        ar: {
+            'شباك': 'شباك',
+            'سبليت': 'سبليت',
+            'باكدج': 'باكدج',
+            'مخفي دولابي/كاسيت': 'مخفي دولابي/كاسيت',
+            'عادي': 'عادي',
+            'إنفيرتر': 'إنفيرتر'
+        },
+        en: {
+            'شباك': 'Window',
+            'سبليت': 'Split',
+            'باكدج': 'Package',
+            'مخفي': 'Concealed',
+            'دولابي': 'free stand',
+            'كاسيت': 'Cassette',
+            'عادي': 'Normal',
+            'إنفيرتر': 'Inverter'
         }
+    };
+    const translations = {
+        ar: {
+            privacyPolicy: 'سياسة الخصوصية',
+            termsOfService: 'شروط الخدمة',
+            articleLinkTitle: 'عدم تبريد المكيف: الأسباب والحلول (مقال)',
+            articleLinkDescription: 'اقرأ المقال الكامل عن أسباب عدم تبريد المكيف وكيفية إصلاحه.',
+            title: 'موسوعة أعطال التكييف',
+            introDescription: 'ابحث عن حلول سريعة لأعطال المكيفات، غرف التبريد، والشيلرات باللغتين العربية والإنجليزية. موقعك الموثوق لصيانة المكيفات!',
+            consultBtn: 'استشارة فورية (مدفوعة)',
+            consultNote: 'اضغط للتواصل عبر واتساب، وسنرسل رابط الدفع بعد إرسال استشارتك.',
+            symptoms: 'الأعراض',
+            codes: 'أكواد الأخطاء',
+            chillers: 'أعطال الشيلر',
+            coolingRooms: 'أعطال غرف التبريد والتجميد',
+            selectAcType: 'اختر نوع المكيف:',
+            selectSymptom: 'اختر العطل:',
+            selectCodeType: 'اختر نوع التكييف:',
+            selectBrand: 'اختر الماركة:',
+            selectCode: 'اختر الكود:',
+            selectChillerFault: 'اختر عطل الشيلر:',
+            selectCoolingRoomFault: 'اختر عطل غرفة التبريد:',
+            check: 'الفحص',
+            solution: 'الحل',
+            switchLang: 'English',
+            searchPlaceholder: 'ابحث عن عطل أو كود (مثل: لا يبرد أو F1)',
+            comingSoon: 'قريبًا',
+            selectOption: '-- اختر --',
+            copyright: 'جميع الحقوق محفوظة © 2025',
+            developedBy: 'التطوير بواسطة المهندس / همام التريكي',
+            contactLinkText: 'للتواصل عبر البريد الإلكتروني',
+            articlePageLink: 'المكيف-لا-يبرد.html'
+        },
+        en: {
+            privacyPolicy: 'Privacy Policy',
+            termsOfService: 'Terms of Service',
+            articleLinkTitle: 'Article: AC Not Cooling: Causes and Solutions',
+            articleLinkDescription: 'Read the full article about the causes of an AC not cooling and how to fix it.',
+            title: 'Air Conditioning Faults Encyclopedia',
+            introDescription: 'Find quick solutions for air conditioner, cooling room, and chiller faults in Arabic and English. Your trusted source for AC maintenance!',
+            consultBtn: 'Instant Consultation (Paid)',
+            consultNote: 'Click to contact us via WhatsApp, and we will send a payment link after receiving your consultation.',
+            symptoms: 'Symptoms',
+            codes: 'Error Codes',
+            chillers: 'Chiller Faults',
+            coolingRooms: 'Cooling Room & Freezing Faults',
+            selectAcType: 'Select AC Type:',
+            selectSymptom: 'Select Symptom:',
+            selectCodeType: 'Select AC Type:',
+            selectBrand: 'Select Brand:',
+            selectCode: 'Select Code:',
+            selectChillerFault: 'Select Chiller Fault:',
+            selectCoolingRoomFault: 'Select Cooling Room Fault:',
+            check: 'Check',
+            solution: 'Solution',
+            switchLang: 'العربية',
+            searchPlaceholder: 'Search for a symptom or code (e.g., Does not cool or F1)',
+            comingSoon: 'Coming Soon',
+            selectOption: '-- Select --',
+            copyright: 'All Rights Reserved © 2025',
+            developedBy: 'Developed by Engineer / Hammam Al-Treiki',
+            contactLinkText: 'Contact via Email',
+            articlePageLink: 'Air-Conditioner-Not-Cooling.html'
+        }
+    };
 
-        function updateSymptoms() {
-            const acTypeSelect = $('#ac-type');
-            const symptomSelect = $('#symptom');
-            const faultDetails = $('#fault-details');
+    function updateArticleLink() {
+        const link = $('#article-link');
+        const linkTitle = link.find('[data-translate="articleLinkTitle"]');
+        const linkDescription = link.find('[data-translate="articleLinkDescription"]');
+        linkTitle.text(translations[currentLang].articleLinkTitle);
+        linkDescription.text(translations[currentLang].articleLinkDescription);
+        link.attr('href', translations[currentLang].articlePageLink);
+        // We will remove the d-none class in the HTML directly.
+    }
 
-            fetch('faults.json')
-                .then(response => {
-                    if (!response.ok) throw new Error('Failed to load faults.json');
-                    return response.json();
-                })
-                .then(data => {
-                    acTypeSelect.empty().append(`<option value="">-- ${translations[currentLang].selectAcType} --</option>`);
+    function switchLanguage() {
+        currentLang = currentLang === 'ar' ? 'en' : 'ar';
+        $('html').attr('lang', currentLang).attr('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+        
+        $('[data-translate]').each(function() {
+            const key = $(this).data('translate');
+            if (key) {
+                $(this).text(translations[currentLang][key]);
+            }
+        });
+        
+        $('title').text(translations[currentLang].title);
+        $('#intro-title').text(translations[currentLang].title);
+        $('#intro-description').text(translations[currentLang].introDescription);
+        $('#consult-btn').html(`<i class="fas fa-headset"></i> ${translations[currentLang].consultBtn}`);
+        $('#consult-note').text(translations[currentLang].consultNote);
+
+        $('#symptoms-title').html(`<i class="fas fa-exclamation-circle"></i> ${translations[currentLang].symptoms}`);
+        $('#codes-title').html(`<i class="fas fa-code"></i> ${translations[currentLang].codes}`);
+        $('#chillers-title').html(`<i class="fas fa-fan"></i> ${translations[currentLang].chillers}`);
+        $('#cooling-rooms-title').html(`<i class="fas fa-snowflake"></i> ${translations[currentLang].coolingRooms}`);
+        
+        $('#label-ac-type').text(translations[currentLang].selectAcType);
+        $('#label-symptom').text(translations[currentLang].selectSymptom);
+        $('#label-ac-code-type').text(translations[currentLang].selectCodeType);
+        $('#label-ac-brand').text(translations[currentLang].selectBrand);
+        $('#label-code').text(translations[currentLang].selectCode);
+        $('#label-chiller-fault').text(translations[currentLang].selectChillerFault);
+        $('#label-cooling-room-fault').text(translations[currentLang].selectCoolingRoomFault);
+
+        $('#ac-type option[value=""]').text(`-- ${translations[currentLang].selectAcType} --`);
+        $('#symptom option[value=""]').text(`-- ${translations[currentLang].selectSymptom} --`);
+        $('#ac-code-type option[value=""]').text(`-- ${translations[currentLang].selectCodeType} --`);
+        $('#ac-brand option[value=""]').text(`-- ${translations[currentLang].selectBrand} --`);
+        $('#code option[value=""]').text(`-- ${translations[currentLang].selectCode} --`);
+        $('#chiller-fault option[value=""]').text(`-- ${translations[currentLang].selectChillerFault} --`);
+        $('#cooling-room-fault option[value=""]').text(`-- ${translations[currentLang].selectCoolingRoomFault} --`);
+
+        $('#search-input').attr('placeholder', translations[currentLang].searchPlaceholder);
+        $('#lang-switch').html(`<i class="fas fa-globe"></i> ${translations[currentLang].switchLang}`);
+        $('#chiller-coming-soon-text').text(translations[currentLang].comingSoon);
+        $('#cooling-room-coming-soon-text').text(translations[currentLang].comingSoon);
+        $('#privacy-policy-link').text(translations[currentLang].privacyPolicy);
+        $('#terms-of-service-link').text(translations[currentLang].termsOfService);
+        $('#footer-copyright').text(translations[currentLang].copyright);
+        $('#footer-developed-by').text(translations[currentLang].developedBy);
+        $('#footer-contact-link').text(translations[currentLang].contactLinkText);
+        
+        updateArticleLink();
+        updateSymptoms();
+        updateCodes();
+        updateChillers();
+        updateCoolingRooms();
+        $('#search-input').val('').trigger('input');
+    }
+
+    function updateSymptoms() {
+        const acTypeSelect = $('#ac-type');
+        const symptomSelect = $('#symptom');
+        const faultDetails = $('#fault-details');
+        fetch('faults.json')
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to load faults.json');
+                return response.json();
+            })
+            .then(data => {
+                acTypeSelect.empty().append(`<option value="">-- ${translations[currentLang].selectAcType} --</option>`);
+                symptomSelect.prop('disabled', true).empty().append(`<option value="">-- ${translations[currentLang].selectSymptom} --</option>`);
+                faultDetails.empty();
+                for (const acType in data) {
+                    acTypeSelect.append(`<option value="${acType}">${acTypeTranslations[currentLang][acType] || acType}</option>`);
+                }
+                acTypeSelect.off('change').on('change', function() {
+                    const selectedType = $(this).val();
                     symptomSelect.prop('disabled', true).empty().append(`<option value="">-- ${translations[currentLang].selectSymptom} --</option>`);
                     faultDetails.empty();
-
-                    for (const acType in data) {
-                        acTypeSelect.append(`<option value="${acType}">${acTypeTranslations[currentLang][acType] || acType}</option>`);
+                    if (selectedType && data[selectedType]) {
+                        const langKey = data[selectedType][currentLang] ? currentLang : 'ar';
+                        symptomSelect.prop('disabled', false);
+                        for (const symptom in data[selectedType][langKey]) {
+                            symptomSelect.append(`<option value="${symptom}">${symptom}</option>`);
+                        }
                     }
-
-                    acTypeSelect.off('change').on('change', function() {
-                        const selectedType = $(this).val();
-                        symptomSelect.prop('disabled', true).empty().append(`<option value="">-- ${translations[currentLang].selectSymptom} --</option>`);
-                        faultDetails.empty();
-
-                        if (selectedType && data[selectedType]) {
-                            const langKey = data[selectedType][currentLang] ? currentLang : 'ar';
-                            symptomSelect.prop('disabled', false);
-                            for (const symptom in data[selectedType][langKey]) {
-                                symptomSelect.append(`<option value="${symptom}">${symptom}</option>`);
-                            }
-                        }
-                    });
-
-                    symptomSelect.off('change').on('change', function() {
-                        const selectedType = acTypeSelect.val();
-                        const selectedSymptom = $(this).val();
-                        faultDetails.empty();
-
-                        if (selectedType && selectedSymptom && data[selectedType]) {
-                            const langKey = data[selectedType][currentLang] ? currentLang : 'ar';
-                            const fault = data[selectedType][langKey][selectedSymptom];
-                            if (fault) {
-                                faultDetails.append(`
-                                    <div class="card">
-                                        <div class="card-header">${translations[currentLang].symptoms}: ${selectedSymptom} (${acTypeTranslations[currentLang][selectedType] || selectedType})</div>
-                                        <div class="card-body">
-                                            <p><strong>${translations[currentLang].check}:</strong> ${fault[langKey === 'ar' ? 'فحص' : 'Check']}</p>
-                                            <p><strong>${translations[currentLang].solution}:</strong> ${fault[langKey === 'ar' ? 'حل' : 'Solution']}</p>
-                                        </div>
+                });
+                symptomSelect.off('change').on('change', function() {
+                    const selectedType = acTypeSelect.val();
+                    const selectedSymptom = $(this).val();
+                    faultDetails.empty();
+                    if (selectedType && selectedSymptom && data[selectedType]) {
+                        const langKey = data[selectedType][currentLang] ? currentLang : 'ar';
+                        const fault = data[selectedType][langKey][selectedSymptom];
+                        if (fault) {
+                            faultDetails.append(`
+                                <div class="card">
+                                    <div class="card-header">${translations[currentLang].symptoms}: ${selectedSymptom} (${acTypeTranslations[currentLang][selectedType] || selectedType})</div>
+                                    <div class="card-body">
+                                        <p><strong>${translations[currentLang].check}:</strong> ${fault[langKey === 'ar' ? 'فحص' : 'Check']}</p>
+                                        <p><strong>${translations[currentLang].solution}:</strong> ${fault[langKey === 'ar' ? 'حل' : 'Solution']}</p>
                                     </div>
-                                `);
-                            }
+                                </div>
+                            `);
                         }
-                    });
-                })
-                .catch(error => console.error('Error loading faults.json:', error));
-        }
+                    }
+                });
+            })
+            .catch(error => console.error('Error loading faults.json:', error));
+    }
 
-        function updateCodes() {
-            const acCodeTypeSelect = $('#ac-code-type'); // For 'Normal' / 'Inverter'
-            const acBrandSelect = $('#ac-brand'); // New dropdown for Brand
-            const codeSelect = $('#code'); // For the actual error code
-            const codeDetails = $('#code-details');
-
-            const jsonFile = currentLang === 'ar' ? 'faults2.json' : 'faults3.json';
-            fetch(jsonFile)
-                .then(response => {
-                    if (!response.ok) throw new Error(`Failed to load ${jsonFile}`);
-                    return response.json();
-                })
-                .then(allCodesData => {
-                    // Populate AC Type dropdown (Normal/Inverter)
-                    acCodeTypeSelect.empty().append(`<option value="">-- ${translations[currentLang].selectCodeType} --</option>`);
-                    const types = [...new Set(allCodesData.map(code => code.category))];
-                    types.forEach(type => {
-                        acCodeTypeSelect.append(`<option value="${type}">${acTypeTranslations[currentLang][type] || type}</option>`);
-                    });
-
-                    // Disable Brand and Code dropdowns initially
+    function updateCodes() {
+        const acCodeTypeSelect = $('#ac-code-type');
+        const acBrandSelect = $('#ac-brand');
+        const codeSelect = $('#code');
+        const codeDetails = $('#code-details');
+        const jsonFile = currentLang === 'ar' ? 'faults2.json' : 'faults3.json';
+        fetch(jsonFile)
+            .then(response => {
+                if (!response.ok) throw new Error(`Failed to load ${jsonFile}`);
+                return response.json();
+            })
+            .then(allCodesData => {
+                acCodeTypeSelect.empty().append(`<option value="">-- ${translations[currentLang].selectCodeType} --</option>`);
+                const types = [...new Set(allCodesData.map(code => code.category))];
+                types.forEach(type => {
+                    acCodeTypeSelect.append(`<option value="${type}">${acTypeTranslations[currentLang][type] || type}</option>`);
+                });
+                acBrandSelect.prop('disabled', true).empty().append(`<option value="">-- ${translations[currentLang].selectBrand} --</option>`);
+                codeSelect.prop('disabled', true).empty().append(`<option value="">-- ${translations[currentLang].selectCode} --</option>`);
+                codeDetails.empty();
+                acCodeTypeSelect.off('change').on('change', function() {
+                    const selectedType = $(this).val();
                     acBrandSelect.prop('disabled', true).empty().append(`<option value="">-- ${translations[currentLang].selectBrand} --</option>`);
                     codeSelect.prop('disabled', true).empty().append(`<option value="">-- ${translations[currentLang].selectCode} --</option>`);
                     codeDetails.empty();
-
-                    // Event listener for AC Type change
-                    acCodeTypeSelect.off('change').on('change', function() {
-                        const selectedType = $(this).val(); // 'عادي' or 'إنفيرتر'
-                        acBrandSelect.prop('disabled', true).empty().append(`<option value="">-- ${translations[currentLang].selectBrand} --</option>`);
-                        codeSelect.prop('disabled', true).empty().append(`<option value="">-- ${translations[currentLang].selectCode} --</option>`);
-                        codeDetails.empty();
-
-                        if (selectedType) {
-                            const brands = [...new Set(allCodesData
-                                .filter(code => code.category === selectedType)
-                                .map(code => code.brand))]; // Assuming 'brand' field exists in JSON
-                            
-                            brands.forEach(brand => {
-                                acBrandSelect.append(`<option value="${brand}">${brand}</option>`);
-                            });
-                            acBrandSelect.prop('disabled', false);
-                        }
-                    });
-
-                    // Event listener for AC Brand change
-                    acBrandSelect.off('change').on('change', function() {
-                        const selectedType = acCodeTypeSelect.val();
-                        const selectedBrand = $(this).val(); // The chosen brand
-                        codeSelect.prop('disabled', true).empty().append(`<option value="">-- ${translations[currentLang].selectCode} --</option>`);
-                        codeDetails.empty();
-
-                        if (selectedType && selectedBrand) {
-                            const codesList = allCodesData
-                                .filter(code => code.category === selectedType && code.brand === selectedBrand)
-                                .map(code => code.fault_name);
-                            
-                            codesList.forEach(code => {
-                                codeSelect.append(`<option value="${code}">${code}</option>`);
-                            });
-                            codeSelect.prop('disabled', false);
-                        }
-                    });
-
-                    // Event listener for Code change (MODIFIED to use brand)
-                    codeSelect.off('change').on('change', function() {
-                        const selectedType = acCodeTypeSelect.val();
-                        const selectedBrand = acBrandSelect.val();
-                        const selectedCode = $(this).val();
-                        codeDetails.empty();
-
-                        const foundCode = allCodesData.find(code => 
-                            code.category === selectedType && 
-                            code.brand === selectedBrand &&
-                            code.fault_name === selectedCode);
-
-                        if (foundCode) {
-                            codeDetails.append(`
-                                <div class="card">
-                                    <div class="card-header">${translations[currentLang].codes}: ${foundCode.fault_name} (${acTypeTranslations[currentLang][foundCode.category] || foundCode.category} - ${foundCode.brand})</div>
-                                    <div class="card-body">
-                                        <p><strong>${translations[currentLang].check}:</strong> ${foundCode.check_text}</p>
-                                        <p><strong>${translations[currentLang].solution}:</strong> ${foundCode.solution}</p>
-                                    </div>
-                                </div>
-                            `);
-                        }
-                    });
-                })
-                .catch(error => console.error(`Error loading ${jsonFile}:`, error));
-        }
-
-        function updateCoolingRooms() {
-            const coolingRoomFaultSelect = $('#cooling-room-fault');
-            const coolingRoomDetailsDiv = $('#cooling-room-details');
-
-            fetch('cooling_rooms.json') // Single file for both languages
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('cooling_rooms.json not found or failed to load');
+                    if (selectedType) {
+                        const brands = [...new Set(allCodesData
+                            .filter(code => code.category === selectedType)
+                            .map(code => code.brand))];
+                        brands.forEach(brand => {
+                            acBrandSelect.append(`<option value="${brand}">${brand}</option>`);
+                        });
+                        acBrandSelect.prop('disabled', false);
                     }
-                    return response.json();
-                })
-                .then(data => {
-                    coolingRoomFaultSelect.empty().append(`<option value="">-- ${translations[currentLang].selectCoolingRoomFault} --</option>`);
-                    coolingRoomDetailsDiv.empty();
-
-                    if (data.length === 0) {
-                        // If JSON is empty, show "Coming Soon"
-                        coolingRoomFaultSelect.prop('disabled', true);
-                        coolingRoomDetailsDiv.html(`
+                });
+                acBrandSelect.off('change').on('change', function() {
+                    const selectedType = acCodeTypeSelect.val();
+                    const selectedBrand = $(this).val();
+                    codeSelect.prop('disabled', true).empty().append(`<option value="">-- ${translations[currentLang].selectCode} --</option>`);
+                    codeDetails.empty();
+                    if (selectedType && selectedBrand) {
+                        const codesList = allCodesData
+                            .filter(code => code.category === selectedType && code.brand === selectedBrand)
+                            .map(code => code.fault_name);
+                        codesList.forEach(code => {
+                            codeSelect.append(`<option value="${code}">${code}</option>`);
+                        });
+                        codeSelect.prop('disabled', false);
+                    }
+                });
+                codeSelect.off('change').on('change', function() {
+                    const selectedType = acCodeTypeSelect.val();
+                    const selectedBrand = acBrandSelect.val();
+                    const selectedCode = $(this).val();
+                    codeDetails.empty();
+                    const foundCode = allCodesData.find(code => 
+                        code.category === selectedType && 
+                        code.brand === selectedBrand &&
+                        code.fault_name === selectedCode);
+                    if (foundCode) {
+                        codeDetails.append(`
                             <div class="card">
-                                <div class="card-body coming-soon">
-                                    <i class="fas fa-hourglass-half"></i> <span id="cooling-room-coming-soon-text">${translations[currentLang].comingSoon}</span>
+                                <div class="card-header">${translations[currentLang].codes}: ${foundCode.fault_name} (${acTypeTranslations[currentLang][foundCode.category] || foundCode.category} - ${foundCode.brand})</div>
+                                <div class="card-body">
+                                    <p><strong>${translations[currentLang].check}:</strong> ${foundCode.check_text}</p>
+                                    <p><strong>${translations[currentLang].solution}:</strong> ${foundCode.solution}</p>
                                 </div>
                             </div>
                         `);
-                        return;
                     }
+                });
+            })
+            .catch(error => console.error(`Error loading ${jsonFile}:`, error));
+    }
 
-                    coolingRoomFaultSelect.prop('disabled', false);
-                    data.forEach((fault, index) => {
-                        // Assuming fault.name is an object {ar: "...", en: "..."}, similar to symptoms faults.json
-                        const faultName = fault.name[currentLang] || fault.name.ar; 
-                        coolingRoomFaultSelect.append(`<option value="${index}">${faultName}</option>`);
-                    });
-
-                    coolingRoomFaultSelect.off('change').on('change', function() {
-                        const selectedIndex = $(this).val();
-                        coolingRoomDetailsDiv.empty();
-
-                        if (selectedIndex !== "") {
-                            const fault = data[selectedIndex];
-                            const faultName = fault.name[currentLang] || fault.name.ar;
-                            const checkText = fault.check[currentLang] || fault.check.ar;
-                            const solutionText = fault.solution[currentLang] || fault.solution.ar;
-
-                            coolingRoomDetailsDiv.append(`
-                                <div class="card">
-                                    <div class="card-header">${translations[currentLang].coolingRooms}: ${faultName}</div>
-                                    <div class="card-body">
-                                        <p><strong>${translations[currentLang].check}:</strong> ${checkText}</p>
-                                        <p><strong>${translations[currentLang].solution}:</strong> ${solutionText}</p>
-                                    </div>
-                                </div>
-                            `);
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.warn(`Cooling Rooms data not loaded, showing 'Coming Soon': ${error.message}`);
+    function updateCoolingRooms() {
+        const coolingRoomFaultSelect = $('#cooling-room-fault');
+        const coolingRoomDetailsDiv = $('#cooling-room-details');
+        fetch('cooling_rooms.json')
+            .then(response => {
+                if (!response.ok) throw new Error('cooling_rooms.json not found or failed to load');
+                return response.json();
+            })
+            .then(data => {
+                coolingRoomFaultSelect.empty().append(`<option value="">-- ${translations[currentLang].selectCoolingRoomFault} --</option>`);
+                coolingRoomDetailsDiv.empty();
+                if (data.length === 0) {
                     coolingRoomFaultSelect.prop('disabled', true);
                     coolingRoomDetailsDiv.html(`
                         <div class="card">
@@ -836,68 +799,58 @@
                             </div>
                         </div>
                     `);
+                    return;
+                }
+                coolingRoomFaultSelect.prop('disabled', false);
+                data.forEach((fault, index) => {
+                    const faultName = fault.name[currentLang] || fault.name.ar;
+                    coolingRoomFaultSelect.append(`<option value="${index}">${faultName}</option>`);
                 });
-        }
-
-        function updateChillers() {
-            const chillerFaultSelect = $('#chiller-fault');
-            const chillerDetailsDiv = $('#chiller-details');
-
-            fetch('chillers.json') // Single file for both languages
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('chillers.json not found or failed to load');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    chillerFaultSelect.empty().append(`<option value="">-- ${translations[currentLang].selectChillerFault} --</option>`);
-                    chillerDetailsDiv.empty();
-
-                    if (data.length === 0) {
-                        // If JSON is empty, show "Coming Soon"
-                        chillerFaultSelect.prop('disabled', true);
-                        chillerDetailsDiv.html(`
+                coolingRoomFaultSelect.off('change').on('change', function() {
+                    const selectedIndex = $(this).val();
+                    coolingRoomDetailsDiv.empty();
+                    if (selectedIndex !== "") {
+                        const fault = data[selectedIndex];
+                        const faultName = fault.name[currentLang] || fault.name.ar;
+                        const checkText = fault.check[currentLang] || fault.check.ar;
+                        const solutionText = fault.solution[currentLang] || fault.solution.ar;
+                        coolingRoomDetailsDiv.append(`
                             <div class="card">
-                                <div class="card-body coming-soon">
-                                    <i class="fas fa-hourglass-half"></i> <span id="chiller-coming-soon-text">${translations[currentLang].comingSoon}</span>
+                                <div class="card-header">${translations[currentLang].coolingRooms}: ${faultName}</div>
+                                <div class="card-body">
+                                    <p><strong>${translations[currentLang].check}:</strong> ${checkText}</p>
+                                    <p><strong>${translations[currentLang].solution}:</strong> ${solutionText}</p>
                                 </div>
                             </div>
                         `);
-                        return;
                     }
+                });
+            })
+            .catch(error => {
+                console.warn(`Cooling Rooms data not loaded, showing 'Coming Soon': ${error.message}`);
+                coolingRoomFaultSelect.prop('disabled', true);
+                coolingRoomDetailsDiv.html(`
+                    <div class="card">
+                        <div class="card-body coming-soon">
+                            <i class="fas fa-hourglass-half"></i> <span id="cooling-room-coming-soon-text">${translations[currentLang].comingSoon}</span>
+                        </div>
+                    </div>
+                `);
+            });
+    }
 
-                    chillerFaultSelect.prop('disabled', false);
-                    data.forEach((fault, index) => {
-                        // Assuming fault.name is an object {ar: "...", en: "..."}, similar to symptoms faults.json
-                        const faultName = fault.name[currentLang] || fault.name.ar;
-                        chillerFaultSelect.append(`<option value="${index}">${faultName}</option>`);
-                    });
-
-                    chillerFaultSelect.off('change').on('change', function() {
-                        const selectedIndex = $(this).val();
-                        chillerDetailsDiv.empty();
-
-                        if (selectedIndex !== "") {
-                            const fault = data[selectedIndex];
-                            const faultName = fault.name[currentLang] || fault.name.ar;
-                            const checkText = fault.check[currentLang] || fault.check.ar;
-                            const solutionText = fault.solution[currentLang] || fault.solution.ar;
-
-                            chillerDetailsDiv.append(`
-                                <div class="card">
-                                    <div class="card-header">${translations[currentLang].chillers}: ${faultName}</div>
-                                    <div class="card-body">
-                                        <p><strong>${translations[currentLang].check}:</strong> ${checkText}</p>
-                                        <p><strong>${translations[currentLang].solution}:</strong> ${solutionText}</p>
-                                    </div>
-                                </div>
-                            `);
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.warn(`Chiller data not loaded, showing 'Coming Soon': ${error.message}`);
+    function updateChillers() {
+        const chillerFaultSelect = $('#chiller-fault');
+        const chillerDetailsDiv = $('#chiller-details');
+        fetch('chillers.json')
+            .then(response => {
+                if (!response.ok) throw new Error('chillers.json not found or failed to load');
+                return response.json();
+            })
+            .then(data => {
+                chillerFaultSelect.empty().append(`<option value="">-- ${translations[currentLang].selectChillerFault} --</option>`);
+                chillerDetailsDiv.empty();
+                if (data.length === 0) {
                     chillerFaultSelect.prop('disabled', true);
                     chillerDetailsDiv.html(`
                         <div class="card">
@@ -906,132 +859,169 @@
                             </div>
                         </div>
                     `);
+                    return;
+                }
+                chillerFaultSelect.prop('disabled', false);
+                data.forEach((fault, index) => {
+                    const faultName = fault.name[currentLang] || fault.name.ar;
+                    chillerFaultSelect.append(`<option value="${index}">${faultName}</option>`);
                 });
+                chillerFaultSelect.off('change').on('change', function() {
+                    const selectedIndex = $(this).val();
+                    chillerDetailsDiv.empty();
+                    if (selectedIndex !== "") {
+                        const fault = data[selectedIndex];
+                        const faultName = fault.name[currentLang] || fault.name.ar;
+                        const checkText = fault.check[currentLang] || fault.check.ar;
+                        const solutionText = fault.solution[currentLang] || fault.solution.ar;
+                        chillerDetailsDiv.append(`
+                            <div class="card">
+                                <div class="card-header">${translations[currentLang].chillers}: ${faultName}</div>
+                                <div class="card-body">
+                                    <p><strong>${translations[currentLang].check}:</strong> ${checkText}</p>
+                                    <p><strong>${translations[currentLang].solution}:</strong> ${solutionText}</p>
+                                </div>
+                            </div>
+                        `);
+                    }
+                });
+            })
+            .catch(error => {
+                console.warn(`Chiller data not loaded, showing 'Coming Soon': ${error.message}`);
+                chillerFaultSelect.prop('disabled', true);
+                chillerDetailsDiv.html(`
+                    <div class="card">
+                        <div class="card-body coming-soon">
+                            <i class="fas fa-hourglass-half"></i> <span id="chiller-coming-soon-text">${translations[currentLang].comingSoon}</span>
+                        </div>
+                    </div>
+                `);
+            });
+    }
+
+    function searchFaultsAndCodes(query) {
+        const searchResults = $('#search-results');
+        searchResults.empty();
+
+        if (query.trim() === '') {
+            return;
         }
 
+        const lowerCaseQuery = query.toLowerCase();
+        let hasResults = false;
 
-        function searchFaultsAndCodes(query) {
-            const searchResults = $('#search-results');
-            searchResults.empty();
-
-            if (query.trim() === '') {
-                return;
-            }
-
-            const lowerCaseQuery = query.toLowerCase();
-            let hasResults = false;
-
-            fetch('faults.json')
-                .then(response => response.ok ? response.json() : Promise.reject('faults.json not found'))
-                .then(data => {
-                    for (const acType in data) {
-                        const langKey = data[acType][currentLang] ? currentLang : 'ar';
-                        for (const symptom in data[acType][langKey]) {
-                            const fault = data[acType][langKey][symptom];
-                            if (symptom.toLowerCase().includes(lowerCaseQuery) ||
-                                (fault[langKey === 'ar' ? 'فحص' : 'Check'] && fault[langKey === 'ar' ? 'فحص' : 'Check'].toLowerCase().includes(lowerCaseQuery)) ||
-                                (fault[langKey === 'ar' ? 'حل' : 'Solution'] && fault[langKey === 'ar' ? 'حل' : 'Solution'].toLowerCase().includes(lowerCaseQuery))) {
-                                searchResults.append(`
-                                    <div class="card">
-                                        <div class="card-header">${translations[currentLang].symptoms}: ${symptom} (${acTypeTranslations[currentLang][acType] || acType})</div>
-                                        <div class="card-body">
-                                            <p><strong>${translations[currentLang].check}:</strong> ${fault[langKey === 'ar' ? 'فحص' : 'Check']}</p>
-                                            <p><strong>${translations[currentLang].solution}:</strong> ${fault[langKey === 'ar' ? 'حل' : 'Solution']}</p>
-                                        </div>
+        fetch('faults.json')
+            .then(response => response.ok ? response.json() : Promise.reject('faults.json not found'))
+            .then(data => {
+                for (const acType in data) {
+                    const langKey = data[acType][currentLang] ? currentLang : 'ar';
+                    for (const symptom in data[acType][langKey]) {
+                        const fault = data[acType][langKey][symptom];
+                        if (symptom.toLowerCase().includes(lowerCaseQuery) ||
+                            (fault[langKey === 'ar' ? 'فحص' : 'Check'] && fault[langKey === 'ar' ? 'فحص' : 'Check'].toLowerCase().includes(lowerCaseQuery)) ||
+                            (fault[langKey === 'ar' ? 'حل' : 'Solution'] && fault[langKey === 'ar' ? 'حل' : 'Solution'].toLowerCase().includes(lowerCaseQuery))) {
+                            searchResults.append(`
+                                <div class="card">
+                                    <div class="card-header">${translations[currentLang].symptoms}: ${symptom} (${acTypeTranslations[currentLang][acType] || acType})</div>
+                                    <div class="card-body">
+                                        <p><strong>${translations[currentLang].check}:</strong> ${fault[langKey === 'ar' ? 'فحص' : 'Check']}</p>
+                                        <p><strong>${translations[currentLang].solution}:</strong> ${fault[langKey === 'ar' ? 'حل' : 'Solution']}</p>
                                     </div>
-                                `);
-                                hasResults = true;
-                            }
+                                </div>
+                            `);
+                            hasResults = true;
                         }
                     }
-                })
-                .catch(error => console.error('Error loading faults.json for search:', error));
+                }
+            })
+            .catch(error => console.error('Error loading faults.json for search:', error));
 
-            const jsonFile = currentLang === 'ar' ? 'faults2.json' : 'faults3.json';
-            fetch(jsonFile)
-                .then(response => response.ok ? response.json() : Promise.reject(`${jsonFile} not found`))
-                .then(codes => {
-                    codes.forEach(code => {
-                        if (code.fault_name.toLowerCase().includes(lowerCaseQuery) ||
-                            code.check_text.toLowerCase().includes(lowerCaseQuery) ||
-                            code.solution.toLowerCase().includes(lowerCaseQuery)) {
-                            searchResults.append(`
-                                <div class="card">
-                                    <div class="card-header">${translations[currentLang].codes}: ${code.fault_name} (${acTypeTranslations[currentLang][code.category] || code.category} - ${code.brand || ''})</div>
-                                    <div class="card-body">
-                                        <p><strong>${translations[currentLang].check}:</strong> ${code.check_text}</p>
-                                        <p><strong>${translations[currentLang].solution}:</strong> ${code.solution}</p>
-                                    </div>
+        const jsonFile = currentLang === 'ar' ? 'faults2.json' : 'faults3.json';
+        fetch(jsonFile)
+            .then(response => response.ok ? response.json() : Promise.reject(`${jsonFile} not found`))
+            .then(codes => {
+                codes.forEach(code => {
+                    if (code.fault_name.toLowerCase().includes(lowerCaseQuery) ||
+                        code.check_text.toLowerCase().includes(lowerCaseQuery) ||
+                        code.solution.toLowerCase().includes(lowerCaseQuery)) {
+                        searchResults.append(`
+                            <div class="card">
+                                <div class="card-header">${translations[currentLang].codes}: ${code.fault_name} (${acTypeTranslations[currentLang][code.category] || code.category} - ${code.brand || ''})</div>
+                                <div class="card-body">
+                                    <p><strong>${translations[currentLang].check}:</strong> ${code.check_text}</p>
+                                    <p><strong>${translations[currentLang].solution}:</strong> ${code.solution}</p>
                                 </div>
-                            `);
-                            hasResults = true;
-                        }
-                    });
-                })
-                .catch(error => console.error(`Error loading ${jsonFile} for search:`, error));
-            
-            fetch('chillers.json') // Single file
-                .then(response => response.ok ? response.json() : Promise.resolve([]))
-                .then(data => {
-                    data.forEach(item => {
-                        // Assuming item.name, item.check, item.solution are objects {ar: "...", en: "..."}
-                        const name = item.name[currentLang] || item.name.ar;
-                        const check = item.check[currentLang] || item.check.ar;
-                        const solution = item.solution[currentLang] || item.solution.ar;
+                            </div>
+                        `);
+                        hasResults = true;
+                    }
+                });
+            })
+            .catch(error => console.error(`Error loading ${jsonFile} for search:`, error));
+        
+        fetch('chillers.json')
+            .then(response => response.ok ? response.json() : Promise.resolve([]))
+            .then(data => {
+                data.forEach(item => {
+                    const name = item.name[currentLang] || item.name.ar;
+                    const check = item.check[currentLang] || item.check.ar;
+                    const solution = item.solution[currentLang] || item.solution.ar;
 
-                        if (name.toLowerCase().includes(lowerCaseQuery) ||
-                            check.toLowerCase().includes(lowerCaseQuery) ||
-                            solution.toLowerCase().includes(lowerCaseQuery)) {
-                            searchResults.append(`
-                                <div class="card">
-                                    <div class="card-header">${translations[currentLang].chillers}: ${name}</div>
-                                    <div class="card-body">
-                                        <p><strong>${translations[currentLang].check}:</strong> ${check}</p>
-                                        <p><strong>${translations[currentLang].solution}:</strong> ${solution}</p>
-                                    </div>
+                    if (name.toLowerCase().includes(lowerCaseQuery) ||
+                        check.toLowerCase().includes(lowerCaseQuery) ||
+                        solution.toLowerCase().includes(lowerCaseQuery)) {
+                        searchResults.append(`
+                            <div class="card">
+                                <div class="card-header">${translations[currentLang].chillers}: ${name}</div>
+                                <div class="card-body">
+                                    <p><strong>${translations[currentLang].check}:</strong> ${check}</p>
+                                    <p><strong>${translations[currentLang].solution}:</strong> ${solution}</p>
                                 </div>
-                            `);
-                            hasResults = true;
-                        }
-                    });
-                })
-                .catch(error => console.warn('Chillers JSON not found for search (expected if "coming soon"):', error));
-            
-            fetch('cooling_rooms.json') // Single file
-                .then(response => response.ok ? response.json() : Promise.resolve([]))
-                .then(data => {
-                    data.forEach(item => {
-                        // Assuming item.name, item.check, item.solution are objects {ar: "...", en: "..."}
-                        const name = item.name[currentLang] || item.name.ar;
-                        const check = item.check[currentLang] || item.check.ar;
-                        const solution = item.solution[currentLang] || item.solution.ar;
+                            </div>
+                        `);
+                        hasResults = true;
+                    }
+                });
+            })
+            .catch(error => console.warn('Chillers JSON not found for search (expected if "coming soon"):', error));
+        
+        fetch('cooling_rooms.json')
+            .then(response => response.ok ? response.json() : Promise.resolve([]))
+            .then(data => {
+                data.forEach(item => {
+                    const name = item.name[currentLang] || item.name.ar;
+                    const check = item.check[currentLang] || item.check.ar;
+                    const solution = item.solution[currentLang] || item.solution.ar;
 
-                        if (name.toLowerCase().includes(lowerCaseQuery) ||
-                            check.toLowerCase().includes(lowerCaseQuery) ||
-                            solution.toLowerCase().includes(lowerCaseQuery)) {
-                            searchResults.append(`
-                                <div class="card">
-                                    <div class="card-header">${translations[currentLang].coolingRooms}: ${name}</div>
-                                    <div class="card-body">
-                                        <p><strong>${translations[currentLang].check}:</strong> ${check}</p>
-                                        <p><strong>${translations[currentLang].solution}:</strong> ${solution}</p>
-                                    </div>
+                    if (name.toLowerCase().includes(lowerCaseQuery) ||
+                        check.toLowerCase().includes(lowerCaseQuery) ||
+                        solution.toLowerCase().includes(lowerCaseQuery)) {
+                        searchResults.append(`
+                            <div class="card">
+                                <div class="card-header">${translations[currentLang].coolingRooms}: ${name}</div>
+                                <div class="card-body">
+                                    <p><strong>${translations[currentLang].check}:</strong> ${check}</p>
+                                    <p><strong>${translations[currentLang].solution}:</strong> ${solution}</p>
                                 </div>
-                            `);
-                            hasResults = true;
-                        }
-                    });
-                })
-                .catch(error => console.warn('Cooling Rooms JSON not found for search (expected if "coming soon"):', error));
+                            </div>
+                        `);
+                        hasResults = true;
+                    }
+                });
+            })
+            .catch(error => console.warn('Cooling Rooms JSON not found for search (expected if "coming soon"):', error));
+    }
+
+    $(document).ready(function() {
+        if ($('html').attr('lang') === 'en') {
+            currentLang = 'en';
+        } else {
+            currentLang = 'ar';
         }
-
-        $(document).ready(function() {
-            updateSymptoms();
-            updateCodes();
-            updateCoolingRooms();
-            updateChillers();
-
-            $('#search-input').on('input', function() {
+        updateArticleLink(); // Call on page load to populate the article link
+        switchLanguage();
+        
+        $('#search-input').on('input', function() {
             const query = $(this).val();
             if (query.length > 0) {
                 searchFaultsAndCodes(query);
@@ -1039,37 +1029,31 @@
                 $('#search-results').empty();
             }
         });
-            $('#lang-switch').on('click', switchLanguage);
+        $('#lang-switch').on('click', switchLanguage);
 
-            $('#privacy-policy-link').on('click', function(e) {
-                e.preventDefault();
-                $('#privacy-policy-section').toggle();
-                $('#terms-of-service-section').hide();
-                if ($('#privacy-policy-section').is(':visible')) {
-                    $('html, body').animate({
-                        scrollTop: $('#privacy-policy-section').offset().top - 70
-                    }, 500);
-                }
-            });
-
-            $('#terms-of-service-link').on('click', function(e) {
-                e.preventDefault();
-                $('#terms-of-service-section').toggle();
-                $('#privacy-policy-section').hide();
-                if ($('#terms-of-service-section').is(':visible')) {
-                    $('html, body').animate({
-                        scrollTop: $('#terms-of-service-section').offset().top - 70
-                    }, 500);
-                }
-            });
-
-            // Initial language setup based on HTML dir attribute
-            if ($('html').attr('dir') === 'ltr') {
-                currentLang = 'en';
+        $('#privacy-policy-link').on('click', function(e) {
+            e.preventDefault();
+            $('#privacy-policy-section').toggle();
+            $('#terms-of-service-section').hide();
+            if ($('#privacy-policy-section').is(':visible')) {
+                $('html, body').animate({
+                    scrollTop: $('#privacy-policy-section').offset().top - 70
+                }, 500);
             }
-            switchLanguage(); // Apply initial translations based on currentLang
         });
-    </script>
+
+        $('#terms-of-service-link').on('click', function(e) {
+            e.preventDefault();
+            $('#terms-of-service-section').toggle();
+            $('#privacy-policy-section').hide();
+            if ($('#terms-of-service-section').is(':visible')) {
+                $('html, body').animate({
+                    scrollTop: $('#terms-of-service-section').offset().top - 70
+                }, 500);
+            }
+        });
+    });
+</script>
 <script type='text/javascript' src='//pl27215752.profitableratecpm.com/e8/9f/03/e89f0395692aaac0ab182c1a7b9e9c66.js'></script>
 <script type='text/javascript' src='//pl27215817.profitableratecpm.com/88/b3/b4/88b3b47f5fe932659030115852116a35.js'></script>
 </body>
